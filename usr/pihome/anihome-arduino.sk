@@ -18,6 +18,10 @@ void setup()
  
 void loop()
 {
+  // Set status PIN for the Status LED
+  
+  pinMode(statusPin, OUTPUT);
+
   // Get data from the Temperature Sensor
   
   float rawADC = analogRead(Temp1);
@@ -28,7 +32,7 @@ void loop()
   // The Distance Meter is triggered by a HIGH pulse of 2 or more microseconds
   // Give a short LOW pulse beforehand to ensure a clean HIGH pulse
   
-  long duration, inches, cm;
+  double duration, cm;
   
   pinMode(distPin, OUTPUT);
   
@@ -43,20 +47,16 @@ void loop()
   
   // Convert the time into a distance
   
-  inches = microsecondsToInches(duration);
   cm = microsecondsToCentimeters(duration);
   
   
-  //Send data over Serial/USB
-  
-  pinMode(statusPin, OUTPUT);
+  //Send Sensors data over Serial/USB
   
   digitalWrite(statusPin,HIGH);
   sendData(tempC);
+  sendData(cm);
   delay(1000);
   digitalWrite(statusPin,LOW);
-  
-  
   
   
   delay(UpdateDelay);
@@ -71,17 +71,7 @@ void sendData(double numDATA)
   }
   free(string);
 }
-long microsecondsToInches(long microseconds)
-{
-  // According to Parallax's datasheet for the PING))), there are
-  // 73.746 microseconds per inch (i.e. sound travels at 1130 feet per
-  // second).  This gives the distance travelled by the ping, outbound
-  // and return, so we divide by 2 to get the distance of the obstacle.
-  // See: http://www.parallax.com/dl/docs/prod/acc/28015-PING-v1.3.pdf
-  return microseconds / 74 / 2;
-}
-
-long microsecondsToCentimeters(long microseconds)
+double microsecondsToCentimeters(long microseconds)
 {
   // The speed of sound is 340 m/s or 29 microseconds per centimeter.
   // The ping travels out and back, so to find the distance of the
