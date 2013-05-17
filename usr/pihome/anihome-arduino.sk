@@ -1,19 +1,34 @@
+// Include support for DHT11 Humadity and Temperature Sensor
+// The library could be downloaded from https://github.com/adafruit/DHT-sensor-library
+#include "DHT.h"
+#define DHTTYPE DHT11
+//#define DHTTYPE DHT22
+
 //Set update sensors data frequency (60 seconds)
 
 unsigned long UpdateDelay = 1000UL * 60;
 
 // Set PINs
 
-const int tempPin = 0;
-const int distPin = 7;
+const int tempPin = 8;
+const int distPin = 9;
 const int statusPin = 10;
+const int dhtPin = 11;
 
-//
+// Set DHT Sensor
+// Connect pin 1 (on the left) of the sensor to +5V
+// Connect pin 2 of the sensor to whatever your DHTPIN is
+// Connect pin 4 (on the right) of the sensor to GROUND
+// Connect a 10K resistor from pin 2 (data) to pin 1 (power) of the sensor
+
+DHT dht(dhtPin, DHTTYPE);
+
 
 void setup()
 {
   delay(1000);
   Serial.begin(9600);
+  dht.begin();
 }
  
 void loop()
@@ -24,7 +39,7 @@ void loop()
 
   // Get data from the Temperature Sensor
   
-  float rawADC = analogRead(Temp1);
+  float rawADC = analogRead(tempPin);
   double tempC = (double) round(1000.0 * rawADC * 5.0 / 1023.0)/10;
   
   
@@ -49,6 +64,22 @@ void loop()
   
   cm = microsecondsToCentimeters(duration);
   
+  
+  // Get DHT Humadity and Temperature Sensor Data
+  
+  // Reading temperature or humidity takes about 250 milliseconds!
+  // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+  
+  if (isnan(t) || isnan(h)) 
+  {
+    Serial.println("Failed to read data from DHT Humadity and Temperature Sensor");
+  } 
+  else 
+  {
+  
+  }
   
   //Send Sensors data over Serial/USB
   
