@@ -1,17 +1,4 @@
 <?
-/*
- * PiHome v1.0
- * http://pihome.harkemedia.de/
- *
- * PiHome Copyright (c) 2012, Sebastian Harke
- * Lizenz Informationen.
- * 
- * This work is licensed under the Creative Commons Namensnennung - Nicht-kommerziell - Weitergabe unter gleichen Bedingungen 3.0 Unported License. To view a copy of this license,
- * visit: http://creativecommons.org/licenses/by-nc-sa/3.0/.
- *
-*/
-
-
 
 function get_date() 
 {
@@ -60,7 +47,7 @@ function pihome_acp_login($pih_username,$pih_passwort) {
 
 
 function getcopy(){
-	return '<a href="http://" target="_blank" title="PiHome">PiHome</a> &#169; '.date('Y');
+	return '<a href="http://" target="_blank" title="AniHOME">AniHOME Automation</a> &#169; '.date('Y');
 }
 
 
