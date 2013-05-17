@@ -1,12 +1,9 @@
 #!/usr/bin/python
 
-# PiHome v1.0
-# http://pihome.harkemedia.de/
+# AniHOME 1.0
+# http://www.anikos.org/
 # 
-# PiHome Copyright © 2012, Sebastian Harke
-# Lizenz Informationen.
-# 
-# This work is licensed under the Creative Commons Namensnennung - Nicht-kommerziell - Weitergabe unter gleichen Bedingungen 3.0 Unported License. To view a copy of this license,
+# This work is licensed under the Creative Commons License,
 # visit: http://creativecommons.org/licenses/by-nc-sa/3.0/.
 
 
