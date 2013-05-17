@@ -1,5 +1,5 @@
 unsigned long UpdateDelay = 1000UL * 60 ;   //Update frequency (60 seconds)
-int Temp1 = 0;	                            //Temp Sensor 1
+int Temp1 = 0;	                             //Temp Sensor 1
 int StatusLED = 10;
  
 void setup()
