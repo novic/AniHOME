@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `pi_admin` (
 
 
 INSERT INTO `pi_admin` (`id`, `user`, `pass`) VALUES
-(1, 'admin', 'pihome');
+(1, 'admin', 'anihome');
 
 
 CREATE TABLE IF NOT EXISTS `pi_devices` (
@@ -46,9 +46,6 @@ CREATE TABLE IF NOT EXISTS `pi_rooms` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
 
---
--- Daten für Tabelle `pi_rooms`
---
 
 INSERT INTO `pi_rooms` (`id`, `room`) VALUES
 (1, 'My Room');
