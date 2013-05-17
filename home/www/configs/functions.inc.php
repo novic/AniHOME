@@ -1,14 +1,4 @@
 <?
-/*
- * PiHome v1.0
- * http://pihome.draw-design.com/
- *
- * PiHome Copyright (c) 2012, Sebastian Harke
- * Lizenz Informationen.
- * 
- *
-*/
-
 
 function get_db_table($data) 
 {
@@ -47,7 +37,7 @@ function dbconnect()
 
 
 function getcopy(){
-	return '<a href="http://" target="_blank" title="PiHome">PiHome</a> &#169; '.date('Y');
+	return '<a href="http://" target="_blank" title="AniHOME">AniHOME Automation</a> &#169; '.date('Y');
 }
 
 
