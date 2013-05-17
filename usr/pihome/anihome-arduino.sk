@@ -1,13 +1,12 @@
-
-//Set update frequency (60 seconds)
+//Set update sensors data frequency (60 seconds)
 
 unsigned long UpdateDelay = 1000UL * 60;
 
 // Set PINs
 
-const int Temp1pin = 0;
-const int pingPin = 7;
-const int StatusLED = 10;
+const int tempPin = 0;
+const int distPin = 7;
+const int statusPin = 10;
 
 //
 
@@ -15,19 +14,51 @@ void setup()
 {
   delay(1000);
   Serial.begin(9600);
-  pinMode(StatusLED, OUTPUT);
 }
  
 void loop()
 {
+  // Get data from the Temperature Sensor
+  
   float rawADC = analogRead(Temp1);
   double tempC = (double) round(1000.0 * rawADC * 5.0 / 1023.0)/10;
- 
-  //Sending data over Serial/USB
+  
+  
+  // Get data from the Distance Sensor
+  // The Distance Meter is triggered by a HIGH pulse of 2 or more microseconds
+  // Give a short LOW pulse beforehand to ensure a clean HIGH pulse
+  
+  long duration, inches, cm;
+  
+  pinMode(distPin, OUTPUT);
+  
+  digitalWrite(distPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(distPin, HIGH);
+  delayMicroseconds(5);
+  digitalWrite(distPin, LOW);
+  
+  pinMode(distPin, INPUT);
+  duration = pulseIn(distPin, HIGH);
+  
+  // Convert the time into a distance
+  
+  inches = microsecondsToInches(duration);
+  cm = microsecondsToCentimeters(duration);
+  
+  
+  //Send data over Serial/USB
+  
+  pinMode(statusPin, OUTPUT);
+  
+  digitalWrite(statusPin,HIGH);
   sendData(tempC);
-  digitalWrite(StatusLED,HIGH);
   delay(1000);
-  digitalWrite(StatusLED,LOW);
+  digitalWrite(statusPin,LOW);
+  
+  
+  
+  
   delay(UpdateDelay);
 }
 
@@ -39,4 +70,21 @@ void sendData(double numDATA)
     Serial.println(string);
   }
   free(string);
+}
+long microsecondsToInches(long microseconds)
+{
+  // According to Parallax's datasheet for the PING))), there are
+  // 73.746 microseconds per inch (i.e. sound travels at 1130 feet per
+  // second).  This gives the distance travelled by the ping, outbound
+  // and return, so we divide by 2 to get the distance of the obstacle.
+  // See: http://www.parallax.com/dl/docs/prod/acc/28015-PING-v1.3.pdf
+  return microseconds / 74 / 2;
+}
+
+long microsecondsToCentimeters(long microseconds)
+{
+  // The speed of sound is 340 m/s or 29 microseconds per centimeter.
+  // The ping travels out and back, so to find the distance of the
+  // object we take half of the distance travelled.
+  return microseconds / 29 / 2;
 }
