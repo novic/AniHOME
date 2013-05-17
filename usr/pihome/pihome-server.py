@@ -18,7 +18,7 @@ import struct
 
 # Read Sensors data from USB/Serial connected Arduino
 
-# ser = serial.Serial('/dev/ttyACM1', 19200)
+# ser = serial.Serial('/dev/ttyACM1', baudrate=119200, bytesize=8, parity='N', stopbits=1)
 # f = open('results.txt','w')
 
 # while 1:
