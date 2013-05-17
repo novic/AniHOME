@@ -12,6 +12,23 @@ import RPi.GPIO as GPIO
 import cgi,time,string,datetime
 from os import curdir, sep, path
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
+from time import gmtime, strftime
+import serial
+import struct
+
+# Read Sensors data from USB/Serial connected Arduino
+
+# ser = serial.Serial('/dev/ttyACM1', 19200)
+# f = open('results.txt','w')
+
+# while 1:
+#        temp=strftime("%Y-%m-%d %H:%M:%S", gmtime())+'\t'+ser.readline()
+#        print(temp)
+#        f.write(temp)
+#        f.close()
+#        f = open('results.txt','a')
+#        time.sleep(5)
+#
 
 
 # Set GPIO Pins !! Do Not Change !!
@@ -151,10 +168,10 @@ class Handler(BaseHTTPRequestHandler):
 def main():
     try:
         srv = HTTPServer(('', 8888), Handler)
-        print 'START PiHome SERVER'
+        print 'Starting AniHOME server'
         srv.serve_forever()
     except KeyboardInterrupt:
-        print ' STOP PiHome SERVER'
+        print 'Stopping AniHOME server'
         srv.socket.close()
 
 
